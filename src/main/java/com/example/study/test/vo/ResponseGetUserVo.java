@@ -13,4 +13,5 @@ public class ResponseGetUserVo {
     private Long id;
     private String name;
     private int age;
+    private String test;
 }

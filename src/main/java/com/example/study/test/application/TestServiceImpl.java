@@ -40,12 +40,6 @@ public class TestServiceImpl implements TestService {
     public List<ResponseGetUserDto> getUserList() {
         List<Product> productList = testRepository.findAll();
 
-        List<ResponseGetUserDto> lists = new ArrayList<>();
-
-        for (Product test1 : productList) {
-            lists.add(ResponseGetUserDto.toDto(test1));
-        }
-
-        return lists;
+        return productList.stream().map(ResponseGetUserDto::toDto).toList();
     }
 }
