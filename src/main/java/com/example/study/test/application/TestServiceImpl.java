@@ -1,11 +1,17 @@
 package com.example.study.test.application;
 
+import com.example.study.test.dto.RequestCreateUserDto;
+import com.example.study.test.dto.ResponseCreateUserDto;
+import com.example.study.test.dto.ResponseGetUserDto;
 import com.example.study.test.entity.Product;
 import com.example.study.test.infrastructure.TestRepository;
 import com.example.study.test.vo.RequestCreateUserVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,14 +31,21 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void createUser(RequestCreateUserVo requestCreateUserVo) {
-        // 비즈니스로직
-        // 받은값을 엔티티로 옮겨닮고
-        Product product = Product.builder()
-                .name(requestCreateUserVo.getName())
-                .build();
-        // 엔티티를 db에 저장
-        testRepository.save(product);
+    public ResponseCreateUserDto createUser(RequestCreateUserDto requestCreateUserDto) {
 
+        return ResponseCreateUserDto.toDto(testRepository.save(requestCreateUserDto.toEntity()));
+    }
+
+    @Override
+    public List<ResponseGetUserDto> getUserList() {
+        List<Product> productList = testRepository.findAll();
+
+        List<ResponseGetUserDto> lists = new ArrayList<>();
+
+        for (Product test1 : productList) {
+            lists.add(ResponseGetUserDto.toDto(test1));
+        }
+
+        return lists;
     }
 }
