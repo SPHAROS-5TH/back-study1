@@ -1,11 +1,9 @@
 spring:
   datasource:
-    # MySQL
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3310/dbdb
     username: root
     password: 1234
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,3 +13,8 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+    show-sql: true  # Add this line to show SQL queries in the logs
+logging:
+  level:
+    org.hibernate.SQL: DEBUG  # Log the SQL statements
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Log the SQL parameter values

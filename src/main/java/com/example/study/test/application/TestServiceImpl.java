@@ -1,5 +1,7 @@
 package com.example.study.test.application;
 
+import com.example.study.global.exception.CustomException;
+import com.example.study.global.exception.ErrorCode;
 import com.example.study.test.dto.RequestCreateUserDto;
 import com.example.study.test.dto.ResponseCreateUserDto;
 import com.example.study.test.dto.ResponseGetUserDto;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +27,10 @@ public class TestServiceImpl implements TestService {
     public Product getUser(Long userId) {
 
         // 비즈니스 로직
-        Product product = testRepository.findById(userId).get();
+        Product product = testRepository.findById(userId).orElseThrow(
+                () -> new CustomException(ErrorCode.PRDUCT_NOT_FOUND)
+        );
+
         // db를 조회해서 user를 찾아서 유저 정보를 리턴
 
         return product;

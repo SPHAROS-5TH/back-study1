@@ -9,6 +9,7 @@ import com.example.study.test.entity.Product;
 import com.example.study.test.vo.RequestCreateUserVo;
 import com.example.study.test.vo.ResponseCreateUserVo;
 import com.example.study.test.vo.ResponseGetUserVo;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.Response;
@@ -41,7 +42,9 @@ public class TestController {
 
     @GetMapping("/{userId}")
     public Product getUser(@PathVariable Long userId) {
-        Product product = testService.getUser(userId);
+
+            Product product = testService.getUser(userId); // Product
+
 
         return product;
     }
@@ -49,8 +52,9 @@ public class TestController {
     @PostMapping
     public ResponseCreateUserVo createUser(@RequestBody RequestCreateUserVo requestCreateUserVo) {
 
-
         return testService.createUser(RequestCreateUserDto.toDto(requestCreateUserVo)).toVo();
+
+
     }
 
     @GetMapping
